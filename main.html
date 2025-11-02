@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayurveez - Ayurvedic Wellness Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Success Message -->
+    <div class="success-message" id="success-message">
+        <i class="fas fa-check-circle"></i>
+        <span id="success-text">Operation completed successfully!</span>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-leaf"></i>
+                    <h1>Ayurveez</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#" data-page="home">Home</a></li>
+                    <li><a href="#" data-page="courses">Courses</a></li>
+                    <li><a href="#" data-page="consultation">Consultation</a></li>
+                    <li><a href="#" data-page="products">Products</a></li>
+                    <li><a href="#" data-page="about">About</a></li>
+                    <li><a href="#" data-page="contact">Contact</a></li>
+                    <li class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </li>
+                    <li><a href="#" class="btn btn-outline" id="login-btn">Login</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h2>Ancient Wisdom for Modern Wellness</h2>
+                <p>Discover the holistic approach to health with Ayurveez - your trusted platform for Ayurvedic education, consultation, and natural products.</p>
+                <a href="#" class="btn" data-page="courses">Explore Courses</a>
+                <a href="#" class="btn btn-secondary" data-page="consultation">Book Consultation</a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Why Choose Ayurveez?</h2>
+                    <p>We combine ancient Ayurvedic wisdom with modern technology to provide you with the best wellness experience.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card" data-page="courses">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Expert Courses</h3>
+                            <p>Comprehensive BAMS curriculum designed by experienced Ayurvedic practitioners and educators.</p>
+                            <a href="#" class="btn" data-page="courses">View Courses</a>
+                        </div>
+                    </div>
+                    <div class="feature-card" data-page="consultation">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Doctor Consultation</h3>
+                            <p>Personalized consultations with certified Ayurvedic doctors for your specific health needs.</p>
+                            <a href="#" class="btn" data-page="consultation">Book Now</a>
+                        </div>
+                    </div>
+                    <div class="feature-card" data-page="products">
+                        <div class="feature-icon">
+                            <i class="fas fa-capsules"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Authentic Products</h3>
+                            <p>Pure, natural Ayurvedic products crafted using traditional methods for optimal wellness.</p>
+                            <a href="#" class="btn" data-page="products">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2>What Our Students & Patients Say</h2>
+                    <p>Real experiences from our community of learners and wellness seekers.</p>
+                </div>
+                <div class="testimonial-slider">
+                    <div class="testimonial active">
+                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="User">
+                        <p>"The BAMS courses at Ayurveez have transformed my understanding of Ayurveda. The curriculum is comprehensive and the faculty is exceptional."</p>
+                        <h4>Priya Sharma</h4>
+                        <p>BAMS Student</p>
+                    </div>
+                    <div class="testimonial">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                        <p>"After consulting with Dr. Verma at Ayurveez, my digestive issues have completely resolved. The personalized diet plan worked wonders!"</p>
+                        <h4>Rahul Mehta</h4>
+                        <p>Patient</p>
+                    </div>
+                    <div class="testimonial">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User">
+                        <p>"The Ayurvedic products from Ayurveez are authentic and effective. I've been using their Triphala and Ashwagandha for 6 months with great results."</p>
+                        <h4>Anita Desai</h4>
+                        <p>Regular Customer</p>
+                    </div>
+                    <div class="slider-controls">
+                        <div class="slider-dot active" data-slide="0"></div>
+                        <div class="slider-dot" data-slide="1"></div>
+                        <div class="slider-dot" data-slide="2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Courses Page -->
+    <div id="courses" class="page">
+        <section class="courses">
+            <div class="container">
+                <div class="section-title">
+                    <h2>BAMS Courses</h2>
+                    <p>Comprehensive Ayurvedic education with structured curriculum for all levels of learners.</p>
+                </div>
+                <div class="courses-tabs">
+                    <button class="tab-btn active" data-tab="first-proff">1st Proff</button>
+                    <button class="tab-btn" data-tab="second-proff">2nd Proff</button>
+                    <button class="tab-btn" data-tab="final-proff">Final Proff</button>
+                </div>
+                <div class="tab-content active" id="first-proff">
+                    <div class="course-grid" id="first-proff-courses">
+                        <!-- Courses will be loaded dynamically -->
+                    </div>
+                </div>
+                <div class="tab-content" id="second-proff">
+                    <div class="course-grid" id="second-proff-courses">
+                        <!-- Courses will be loaded dynamically -->
+                    </div>
+                </div>
+                <div class="tab-content" id="final-proff">
+                    <div class="course-grid" id="final-proff-courses">
+                        <!-- Courses will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Consultation Page -->
+    <div id="consultation" class="page">
+        <section class="consultation">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Doctor Consultation</h2>
+                    <p>Get personalized Ayurvedic consultations from our panel of experienced doctors.</p>
+                </div>
+                <div class="consultation-container">
+                    <div class="consultation-img">
+                        <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Ayurvedic Consultation">
+                    </div>
+                    <div class="consultation-content">
+                        <h3>Personalized Ayurvedic Health Solutions</h3>
+                        <p>Our certified Ayurvedic doctors provide comprehensive consultations to address your health concerns with natural, holistic approaches.</p>
+                        <ul class="consultation-features">
+                            <li><i class="fas fa-check-circle"></i> Detailed health assessment through traditional methods</li>
+                            <li><i class="fas fa-check-circle"></i> Personalized diet and lifestyle recommendations</li>
+                            <li><i class="fas fa-check-circle"></i> Herbal formulations tailored to your constitution</li>
+                            <li><i class="fas fa-check-circle"></i> Follow-up consultations to track progress</li>
+                            <li><i class="fas fa-check-circle"></i> Panchakarma therapy recommendations when needed</li>
+                        </ul>
+                        <div class="consultation-form">
+                            <h3>Book Your Consultation</h3>
+                            <form id="consultation-form">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                                    <input type="text" placeholder="First Name" id="first-name" required>
+                                    <input type="text" placeholder="Last Name" id="last-name" required>
+                                </div>
+                                <input type="email" placeholder="Email" id="email" required style="width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid #ddd; border-radius: 5px;">
+                                <input type="tel" placeholder="Phone Number" id="phone" required style="width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid #ddd; border-radius: 5px;">
+                                <select id="doctor" style="width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid #ddd; border-radius: 5px;">
+                                    <option value="">Select Doctor</option>
+                                    <option value="dr-sharma">Dr. Sharma (General Ayurveda)</option>
+                                    <option value="dr-patel">Dr. Patel (Panchakarma Specialist)</option>
+                                    <option value="dr-verma">Dr. Verma (Women's Health)</option>
+                                </select>
+                                <input type="date" id="consultation-date" style="width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid #ddd; border-radius: 5px;">
+                                <textarea placeholder="Describe your health concerns" id="health-concerns" style="width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid #ddd; border-radius: 5px; height: 100px;"></textarea>
+                                <button type="submit" class="btn" style="width: 100%; margin-bottom: 15px;">Book Consultation</button>
+                                <button type="button" class="btn btn-whatsapp" style="width: 100%;" id="whatsapp-consultation">
+                                    <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Products Page -->
+    <div id="products" class="page">
+        <section class="products">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Ayurvedic Products</h2>
+                    <p>Pure, natural products crafted using traditional Ayurvedic methods for your wellness journey.</p>
+                </div>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1596047092667-9c78b5fdd1b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-content">
+                            <h3>Triphala Churna</h3>
+                            <p>Traditional herbal formula for digestion, detoxification and overall wellness.</p>
+                            <div class="product-price">
+                                <span class="price">₹450</span>
+                                <button class="btn add-to-cart" data-id="product-1" data-name="Triphala Churna" data-price="450" data-type="product">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1594736797933-d0ea3ff8db41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-content">
+                            <h3>Ashwagandha Capsules</h3>
+                            <p>Adaptogenic herb for stress relief, energy boost and immune support.</p>
+                            <div class="product-price">
+                                <span class="price">₹650</span>
+                                <button class="btn add-to-cart" data-id="product-2" data-name="Ashwagandha Capsules" data-price="650" data-type="product">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1594736797933-d0ea3ff8db41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-content">
+                            <h3>Brahmi Oil</h3>
+                            <p>Herbal hair oil for promoting hair growth, reducing stress and improving memory.</p>
+                            <div class="product-price">
+                                <span class="price">₹350</span>
+                                <button class="btn add-to-cart" data-id="product-3" data-name="Brahmi Oil" data-price="350" data-type="product">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1596047092667-9c78b5fdd1b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-content">
+                            <h3>Chyawanprash</h3>
+                            <p>Traditional herbal jam for immunity, vitality and overall health maintenance.</p>
+                            <div class="product-price">
+                                <span class="price">₹550</span>
+                                <button class="btn add-to-cart" data-id="product-4" data-name="Chyawanprash" data-price="550" data-type="product">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1594736797933-d0ea3ff8db41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-content">
+                            <h3>Neem Capsules</h3>
+                            <p>Purifying herb for skin health, blood purification and immune support.</p>
+                            <div class="product-price">
+                                <span class="price">₹400</span>
+                                <button class="btn add-to-cart" data-id="product-5" data-name="Neem Capsules" data-price="400" data-type="product">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1596047092667-9c78b5fdd1b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-content">
+                            <h3>Turmeric Powder</h3>
+                            <p>Anti-inflammatory and antioxidant-rich spice for overall wellness.</p>
+                            <div class="product-price">
+                                <span class="price">₹300</span>
+                                <button class="btn add-to-cart" data-id="product-6" data-name="Turmeric Powder" data-price="300" data-type="product">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2>About Ayurveez</h2>
+                    <p>Learn more about our mission, vision, and the team behind Ayurveez.</p>
+                </div>
+                <div class="about-container">
+                    <div class="about-img">
+                        <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="About Ayurveez">
+                    </div>
+                    <div class="about-content">
+                        <h3>Our Mission</h3>
+                        <p>Ayurveez is dedicated to making authentic Ayurvedic knowledge accessible to everyone. We bridge the gap between ancient wisdom and modern healthcare needs.</p>
+                        
+                        <h3>What We Offer</h3>
+                        <p>Through our platform, we provide comprehensive BAMS courses, personalized doctor consultations, and authentic Ayurvedic products - all designed to promote holistic wellness.</p>
+                        
+                        <h3>Our Vision</h3>
+                        <p>To become the most trusted Ayurvedic wellness platform, empowering individuals to take control of their health through natural, time-tested approaches.</p>
+                        
+                        <h3>Why Choose Us</h3>
+                        <p>With certified Ayurvedic practitioners, authentic products, and a commitment to quality, Ayurveez is your partner in the journey to better health.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="contact">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Contact Us</h2>
+                    <p>Get in touch with us for any queries or support.</p>
+                </div>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <ul class="contact-details">
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Vishnupad Road, Bengali Ashram<br>Gaya (823001), Bihar</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <span>+91 8271890090</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <span>info@ayurveez.com</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-clock"></i>
+                                <span>Monday - Saturday: 9:00 AM - 7:00 PM</span>
+                            </li>
+                        </ul>
+                        
+                        <h3>Follow Us</h3>
+                        <div class="social-links-contact">
+                            <a href="https://www.instagram.com/ayurveez_bams/" target="_blank" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.youtube.com/@ayurveez" target="_blank" title="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="https://wa.me/918271890090" target="_blank" title="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="#" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <input type="text" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" placeholder="Your Phone" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Subject" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea placeholder="Your Message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- User Dashboard Page -->
+    <div id="user-dashboard" class="page">
+        <section class="dashboard">
+            <div class="container">
+                <div class="section-title">
+                    <h2>My Dashboard</h2>
+                    <p>Manage your courses, consultations, and account settings.</p>
+                </div>
+                
+                <div class="dashboard-tabs">
+                    <button class="dashboard-tab active" data-tab="my-courses">My Courses</button>
+                    <button class="dashboard-tab" data-tab="my-consultations">My Consultations</button>
+                    <button class="dashboard-tab" data-tab="account-settings">Account Settings</button>
+                </div>
+                
+                <div class="dashboard-content active" id="my-courses">
+                    <h3>Enrolled Courses</h3>
+                    <div class="enrolled-courses" id="enrolled-courses-list">
+                        <!-- Enrolled courses will be displayed here -->
+                    </div>
+                    
+                    <div id="course-player" style="display: none; margin-top: 40px;">
+                        <h3>Course Content</h3>
+                        <div class="video-player" id="video-player">
+                            <!-- Video player will be displayed here -->
+                            <p>Select a video to start learning</p>
+                        </div>
+                        <div class="video-list" id="video-list">
+                            <!-- Video list will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-content" id="my-consultations">
+                    <h3>My Consultations</h3>
+                    <div class="consultation-list" id="consultation-list">
+                        <!-- Consultation bookings will be displayed here -->
+                    </div>
+                </div>
+                
+                <div class="dashboard-content" id="account-settings">
+                    <h3>Account Settings</h3>
+                    <div class="profile-picture-upload">
+                        <div class="profile-picture" id="profile-picture">
+                            <i class="fas fa-user" id="profile-icon"></i>
+                            <img id="profile-image" src="" style="display: none;">
+                        </div>
+                        <div class="upload-options">
+                            <button type="button" class="upload-btn" id="upload-from-computer">
+                                <i class="fas fa-upload"></i> Upload Photo
+                            </button>
+                            <button type="button" class="upload-btn" id="use-google-photo">
+                                <i class="fab fa-google"></i> Use Google Photo
+                            </button>
+                            <input type="file" id="profile-upload" accept="image/*" style="display: none;">
+                            <p class="upload-note">Maximum file size: 5MB</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="user-name">Full Name</label>
+                        <input type="text" id="user-name" value="Rahul Kumar">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email">Email</label>
+                        <input type="email" id="user-email" value="rahul@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-phone">Phone</label>
+                        <input type="tel" id="user-phone" value="+91 9876543210">
+                    </div>
+                    <button class="btn">Update Profile</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Admin Dashboard Page -->
+    <div id="admin-dashboard" class="page">
+        <section class="admin-dashboard">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Admin Dashboard</h2>
+                    <p>Manage courses, content, and platform settings</p>
+                </div>
+                
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="manage-courses">Manage Courses</button>
+                    <button class="admin-tab" data-tab="upload-content">Upload Content</button>
+                    <button class="admin-tab" data-tab="user-management">User Management</button>
+                    <button class="admin-tab" data-tab="admin-settings">Settings</button>
+                </div>
+                
+                <div class="admin-content active" id="manage-courses">
+                    <div class="admin-header">
+                        <h3>Manage Courses</h3>
+                        <button class="btn" id="add-course-btn">Add New Course</button>
+                    </div>
+                    <div class="courses-list" id="admin-courses-list">
+                        <!-- Courses will be listed here -->
+                    </div>
+                </div>
+                
+                <div class="admin-content" id="upload-content">
+                    <h3>Upload Course Content</h3>
+                    <div class="upload-form">
+                        <div class="form-group">
+                            <label for="content-course">Select Course</label>
+                            <select id="content-course" required>
+                                <option value="">Select a course</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="content-title">Content Title</label>
+                            <input type="text" id="content-title" placeholder="Enter content title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="content-type">Content Type</label>
+                            <select id="content-type" required>
+                                <option value="">Select type</option>
+                                <option value="video">Video</option>
+                                <option value="pdf">PDF Document</option>
+                                <option value="text">Text Content</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="video-url-group" style="display: none;">
+                            <label for="video-url">YouTube Video URL</label>
+                            <input type="url" id="video-url" placeholder="https://www.youtube.com/watch?v=...">
+                        </div>
+                        <div class="form-group" id="pdf-upload-group" style="display: none;">
+                            <label for="pdf-file">Upload PDF</label>
+                            <input type="file" id="pdf-file" accept=".pdf">
+                        </div>
+                        <div class="form-group" id="text-content-group" style="display: none;">
+                            <label for="text-content">Text Content</label>
+                            <textarea id="text-content" rows="6" placeholder="Enter text content"></textarea>
+                        </div>
+                        <!-- Thumbnail Upload Option -->
+                        <div class="form-group" id="thumbnail-upload-group">
+                            <label for="thumbnail-file">Course Thumbnail (Optional)</label>
+                            <input type="file" id="thumbnail-file" accept="image/*">
+                            <small>Recommended size: 400x300px. Supported formats: JPG, PNG</small>
+                        </div>
+                        <button class="btn" id="upload-content-btn">Upload Content</button>
+                    </div>
+                    
+                    <div class="content-list" id="admin-content-list" style="margin-top: 40px;">
+                        <h4>Uploaded Content</h4>
+                        <!-- Content will be listed here -->
+                    </div>
+                </div>
+                
+                <div class="admin-content" id="user-management">
+                    <h3>User Management</h3>
+                    <div class="users-list" id="admin-users-list">
+                        <!-- Users will be listed here -->
+                    </div>
+                </div>
+                
+                <div class="admin-content" id="admin-settings">
+                    <h3>Admin Settings</h3>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label for="admin-name">Admin Name</label>
+                            <input type="text" id="admin-name" value="Admin User">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-email">Admin Email</label>
+                            <input type="email" id="admin-email" value="admin@ayurveez.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-password">Change Password</label>
+                            <input type="password" id="admin-password" placeholder="Enter new password">
+                        </div>
+                        <button class="btn">Save Settings</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-tabs">
+                <button class="modal-tab active" data-form="user-login">User Login</button>
+                <button class="modal-tab" data-form="admin-login">Admin Login</button>
+                <button class="modal-tab" data-form="register-form">User Register</button>
+                <!-- Forgot Password Tab -->
+                <button class="modal-tab" data-form="forgot-password-form" style="display: none;" id="forgot-password-tab">Reset Password</button>
+            </div>
+            
+            <!-- User Login Form -->
+            <form class="modal-form active" id="user-login">
+                <div class="form-group">
+                    <label for="user-login-email">Email</label>
+                    <input type="email" id="user-login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="user-login-password">Password</label>
+                    <input type="password" id="user-login-password" required>
+                </div>
+                <div class="form-options">
+                    <a href="#" class="forgot-password" id="forgot-password-link">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; margin-bottom: 15px;">User Login</button>
+            </form>
+            
+            <!-- Admin Login Form -->
+            <form class="modal-form" id="admin-login">
+                <div class="form-group">
+                    <label for="admin-login-email">Admin Email</label>
+                    <input type="email" id="admin-login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-login-password">Admin Password</label>
+                    <input type="password" id="admin-login-password" required>
+                </div>
+                <button type="submit" class="btn btn-secondary" style="width: 100%; margin-bottom: 15px;">Admin Login</button>
+            </form>
+            
+            <!-- User Register Form -->
+            <form class="modal-form" id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-phone">Phone</label>
+                    <input type="tel" id="register-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                
+                <!-- Security Questions for Registration -->
+                <div class="form-group">
+                    <label for="security-question">Security Question *</label>
+                    <select id="security-question" required>
+                        <option value="">Select a security question</option>
+                        <option value="first_school">What was the name of your first school?</option>
+                        <option value="first_college">What was the name of your first college/university?</option>
+                        <option value="pet_name">What was your first pet's name?</option>
+                        <option value="favorite_book">What is your favorite book?</option>
+                        <option value="birth_city">In which city were you born?</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="security-answer">Security Answer *</label>
+                    <input type="text" id="security-answer" required>
+                    <small class="security-note">* Please remember this answer as it will be required for password recovery</small>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%; margin-bottom: 15px;">Register</button>
+            </form>
+
+            <!-- Forgot Password Form - SIMPLIFIED VERSION -->
+            <form class="modal-form" id="forgot-password-form">
+                <!-- Step Indicator -->
+                <div class="password-reset-steps">
+                    <div class="step active" id="step-1">1</div>
+                    <div class="step" id="step-2">2</div>
+                    <div class="step" id="step-3">3</div>
+                </div>
+                
+                <!-- Step 1: Phone Number Only -->
+                <div class="form-group" id="phone-group">
+                    <label for="reset-phone">Enter your registered phone number</label>
+                    <input type="tel" id="reset-phone" required placeholder="Enter your phone number">
+                </div>
+                
+                <!-- Step 2: Security Question -->
+                <div class="form-group" id="security-question-group" style="display: none;">
+                    <label for="security-question-answer">
+                        Security Question: 
+                        <span class="security-question" id="security-question-text"></span>
+                        <span class="required-star">*</span>
+                    </label>
+                    <input type="text" id="security-question-answer" required placeholder="Enter your answer">
+                    <small class="security-note">* This answer was set during registration. Please enter it exactly as you did then.</small>
+                </div>
+                
+                <!-- Step 3: Password Display -->
+                <div class="password-display" id="password-display" style="display: none;">
+                    <div class="current-password-info">
+                        <h4>Your Current Password</h4>
+                        <div class="password-show" id="current-password-show"></div>
+                        <div class="password-timer" id="password-timer">This password will be hidden in <span id="countdown">10</span> seconds</div>
+                    </div>
+                </div>
+                
+                <!-- Step 3: New Password Reset -->
+                <div class="new-password-reset" id="new-password-reset" style="display: none;">
+                    <h4>Reset Your Password</h4>
+                    <div class="form-group">
+                        <label for="new-password">New Password</label>
+                        <input type="password" id="new-password" required minlength="6" placeholder="Enter new password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-new-password">Confirm New Password</label>
+                        <input type="password" id="confirm-new-password" required minlength="6" placeholder="Confirm new password">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="back-to-login">Back to Login</button>
+                    <button type="button" class="btn" id="next-to-security">Next</button>
+                    <button type="button" class="btn" id="verify-security-btn" style="display: none;">Verify Security Answer</button>
+                    <button type="button" class="btn" id="reset-password-btn" style="display: none;">Reset Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <span class="close-cart">&times;</span>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be displayed here -->
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total-amount">₹0</span>
+        </div>
+        <div class="cart-actions">
+            <button class="btn" style="width: 100%;" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Page -->
+    <div id="order-confirmation" class="page">
+        <section class="order-confirmation">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Order Confirmation</h2>
+                    <p>Please review your order and fill in your details</p>
+                </div>
+                
+                <div class="order-container">
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div class="order-items" id="order-items">
+                            <!-- Order items will be displayed here -->
+                        </div>
+                        <div class="order-total">
+                            <strong>Total Amount: <span id="order-total-amount">₹0</span></strong>
+                        </div>
+                    </div>
+                    
+                    <div class="customer-details">
+                        <h3>Shipping Details</h3>
+                        <form id="order-form">
+                            <div class="form-group">
+                                <label for="customer-name">Full Name *</label>
+                                <input type="text" id="customer-name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-email">Email Address *</label>
+                                <input type="email" id="customer-email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-phone">Phone Number *</label>
+                                <input type="tel" id="customer-phone" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-address">Delivery Address *</label>
+                                <textarea id="customer-address" rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="customer-city">City *</label>
+                                    <input type="text" id="customer-city" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="customer-pincode">Pincode *</label>
+                                    <input type="text" id="customer-pincode" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-state">State *</label>
+                                <input type="text" id="customer-state" required>
+                            </div>
+                            
+                            <div class="order-actions">
+                                <button type="button" class="btn btn-outline" id="back-to-cart">Back to Cart</button>
+                                <button type="submit" class="btn">Proceed to Payment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Ayurveez</h3>
+                    <p>Your trusted platform for authentic Ayurvedic education, consultation and products.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/ayurveez_bams/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@ayurveez" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://wa.me/918271890090" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="courses">Courses</a></li>
+                        <li><a href="#" data-page="consultation">Consultation</a></li>
+                        <li><a href="#" data-page="products">Products</a></li>
+                        <li><a href="#" data-page="about">About</a></li>
+                        <li><a href="#" data-page="contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Courses</h3>
+                    <ul>
+                        <li><a href="#" data-page="courses">1st Proff BAMS</a></li>
+                        <li><a href="#" data-page="courses">2nd Proff BAMS</a></li>
+                        <li><a href="#" data-page="courses">Final Proff BAMS</a></li>
+                        <li><a href="#" data-page="courses">Short Term Courses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Vishnupad Road, Bengali Ashram, Gaya (823001)</li>
+                        <li><i class="fas fa-phone"></i> +91 8271890090</li>
+                        <li><i class="fas fa-envelope"></i> info@ayurveez.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ayurveez. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
