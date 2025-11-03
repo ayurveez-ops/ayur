@@ -19,8 +19,8 @@
         <div class="container">
             <nav class="navbar">
                 <div class="logo">
-                    <i class="fas fa-leaf"></i>
-                    <h1>Ayurveez</h1>
+                    <img src="Assets/images/logo.png" alt="Ayurveez" class="logo-img">
+                    <h1 class="logo-text">Ayurveez</h1>
                 </div>
                 <ul class="nav-links">
                     <li><a href="#" data-page="home">Home</a></li>
@@ -33,7 +33,14 @@
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
                     </li>
-                    <li><a href="#" class="btn btn-outline" id="login-btn">Login</a></li>
+                    <li class="profile-dropdown">
+                        <div class="profile-icon" id="profile-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu">
+                            <!-- Dynamic content - JavaScript se change hoga -->
+                        </div>
+                    </li>
                 </ul>
                 <div class="mobile-menu">
                     <i class="fas fa-bars"></i>
@@ -41,6 +48,18 @@
             </nav>
         </div>
     </header>
+
+    <!-- Shloka Slider - HEADER KE NICHE -->
+    <section class="shloka-slider">
+        <div class="container">
+            <div class="shloka-slide active">🕉️ "धर्मार्थकाममोक्षाणाम् आरोग्यं मूलमुत्तमम्।"</div>
+            <div class="shloka-slide">"Health is the foundation of Dharma, Artha, Kama and Moksha."</div>
+            <div class="shloka-slide">🌿 "सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः।"</div>
+            <div class="shloka-slide">"May all be happy, may all be free from illness."</div>
+            <div class="shloka-slide">🔥 "अहारसंभवो देहः।"</div>
+            <div class="shloka-slide">💫 "When diet is wrong, medicine is of no use; when diet is correct, medicine is of no need."</div>
+        </div>
+    </section>
 
     <!-- Home Page -->
     <div id="home" class="page active">
@@ -485,11 +504,31 @@
                 </div>
                 
                 <div class="admin-tabs">
-                    <button class="admin-tab active" data-tab="manage-courses">Manage Courses</button>
-                    <button class="admin-tab" data-tab="upload-content">Upload Content</button>
-                    <button class="admin-tab" data-tab="user-management">User Management</button>
-                    <button class="admin-tab" data-tab="admin-settings">Settings</button>
-                </div>
+    <button class="admin-tab active" data-tab="manage-courses">Manage Courses</button>
+    <button class="admin-tab" data-tab="manage-products">Manage Products</button>
+    <button class="admin-tab" data-tab="order-management">Order Management</button>
+    <button class="admin-tab" data-tab="upload-content">Upload Content</button>
+    <button class="admin-tab" data-tab="user-management">User Management</button>
+    <button class="admin-tab" data-tab="admin-settings">Settings</button>
+</div>
+
+<!-- Add these new sections -->
+<div class="admin-content" id="manage-products">
+    <div class="admin-header">
+        <h3>Manage Products</h3>
+        <button class="btn" id="add-product-btn">Add New Product</button>
+    </div>
+    <div class="products-list" id="admin-products-list">
+        <!-- Products will be listed here -->
+    </div>
+</div>
+
+<div class="admin-content" id="order-management">
+    <h3>Order Management</h3>
+    <div class="orders-list" id="admin-orders-list">
+        <!-- Orders will be listed here -->
+    </div>
+</div>
                 
                 <div class="admin-content active" id="manage-courses">
                     <div class="admin-header">
@@ -552,8 +591,52 @@
                 
                 <div class="admin-content" id="user-management">
                     <h3>User Management</h3>
-                    <div class="users-list" id="admin-users-list">
-                        <!-- Users will be listed here -->
+                    
+                    <!-- User Management Section -->
+                    <div class="user-management-section">
+                        <div class="section-header">
+                            <div class="search-box">
+                                <input type="text" placeholder="Search users..." class="search-input" id="user-search">
+                                <button class="search-btn" id="search-users">Search</button>
+                            </div>
+                            <div class="user-stats">
+                                <span class="stat-item">Total: <strong id="total-users">0</strong></span>
+                                <span class="stat-item">Active: <strong id="active-users">0</strong></span>
+                                <span class="stat-item">Inactive: <strong id="inactive-users">0</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="users-table-container">
+                            <table class="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>User ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Registration Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body">
+                                    <tr>
+                                        <td colspan="7" class="no-data">Loading users...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pagination">
+                            <button class="page-btn" id="prev-page">Previous</button>
+                            <span class="page-info">Page <span id="current-page">1</span> of <span id="total-pages">1</span></span>
+                            <button class="page-btn" id="next-page">Next</button>
+                        </div>
+                    </div>
+                    <!-- End User Management Section -->
+
+                    <div class="users-list" id="admin-users-list" style="display: none;">
+                        <!-- Old content - hide it -->
                     </div>
                 </div>
                 
@@ -621,7 +704,7 @@
             </form>
             
             <!-- User Register Form -->
-            <form class="modal-form" id="register-form">
+            <form class="modal-form" id="register-form" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
                 <div class="form-group">
                     <label for="register-name">Full Name</label>
                     <input type="text" id="register-name" required>
@@ -811,6 +894,131 @@
         </section>
     </div>
 
+    <!-- Order Summary Page -->
+<div id="order-summary" class="page">
+    <section class="order-summary">
+        <div class="container">
+            <div class="section-title">
+                <h2>Order Summary</h2>
+                <p>Review your order details before proceeding to payment</p>
+            </div>
+            
+            <div class="order-summary-container">
+                <div class="order-details">
+                    <h3>Order Details</h3>
+                    <div class="order-summary-content" id="order-summary-details">
+                        <!-- Order summary will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="customer-details-summary">
+                    <h3>Shipping Details</h3>
+                    <div class="customer-info-content" id="customer-info-details">
+                        <!-- Customer info will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-summary-actions">
+                <button class="btn btn-outline" onclick="showPage('order-confirmation')">
+                    ← Edit Address
+                </button>
+                <button class="btn" id="proceed-to-payment-btn">
+                    Proceed to Payment →
+                </button>
+            </div>
+            
+            <div class="payment-notice">
+                <p><strong>Note:</strong> You will be redirected to Cashfree payment gateway for secure payment processing.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+    <!-- Privacy Policy Page -->
+    <div id="privacy-policy" class="page">
+        <div class="container">
+            <div class="section-title">
+                <h2>Privacy Policy</h2>
+                <p>Last updated: December 2024</p>
+            </div>
+            <div class="policy-content">
+                <div class="section">
+                    <h3>1. Information We Collect</h3>
+                    <p>We collect information that you provide directly to us, including:</p>
+                    <ul>
+                        <li>Name, email address, phone number</li>
+                        <li>Course enrollment information</li>
+                        <li>Consultation booking details</li>
+                        <li>Payment information (processed securely through our payment partners)</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>2. How We Use Your Information</h3>
+                    <p>We use the information we collect to:</p>
+                    <ul>
+                        <li>Provide, maintain, and improve our services</li>
+                        <li>Process your course enrollments and consultations</li>
+                        <li>Send you important updates and notifications</li>
+                        <li>Respond to your comments and questions</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>3. Data Security</h3>
+                    <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+                </div>
+
+                <div class="section">
+                    <h3>4. Contact Us</h3>
+                    <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+                    <p>Email: privacy@ayurveez.com<br>Phone: +91-9376884568</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Page -->
+    <div id="terms-conditions" class="page">
+        <div class="container">
+            <div class="section-title">
+                <h2>Terms & Conditions</h2>
+                <p>Last updated: December 2024</p>
+            </div>
+            <div class="terms-content">
+                <div class="section">
+                    <h3>1. Acceptance of Terms</h3>
+                    <p>By accessing and using Ayurveez services, you accept and agree to be bound by these Terms and Conditions.</p>
+                </div>
+
+                <div class="section">
+                    <h3>2. Course Enrollment</h3>
+                    <p>2.1. Course fees are non-refundable once the course has been accessed.<br>
+                    2.2. Course materials are for personal use only and may not be redistributed.</p>
+                </div>
+
+                <div class="section">
+                    <h3>3. Consultations</h3>
+                    <p>3.1. Consultation bookings require 24 hours notice for cancellation.<br>
+                    3.2. Rescheduling is subject to availability.</p>
+                </div>
+
+                <div class="section">
+                    <h3>4. Payments</h3>
+                    <p>4.1. All payments are processed through secure payment gateways.<br>
+                    4.2. We do not store your payment card details.</p>
+                </div>
+
+                <div class="section">
+                    <h3>5. Contact Information</h3>
+                    <p>For any questions regarding these Terms & Conditions, please contact:</p>
+                    <p>Email: legal@ayurveez.com<br>Phone: +91-9376884568</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -842,7 +1050,7 @@
                         <li><a href="#" data-page="courses">1st Proff BAMS</a></li>
                         <li><a href="#" data-page="courses">2nd Proff BAMS</a></li>
                         <li><a href="#" data-page="courses">Final Proff BAMS</a></li>
-                        <li><a href="#" data-page="courses">Short Term Courses</a></li>
+                    
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -852,6 +1060,16 @@
                         <li><i class="fas fa-phone"></i> +91 8271890090</li>
                         <li><i class="fas fa-envelope"></i> info@ayurveez.com</li>
                     </ul>
+
+                    <div class="footer-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#" data-page="privacy-policy">Privacy Policy</a></li>
+                            <li><a href="#" data-page="terms-conditions">Terms & Conditions</a></li>
+                            <li><a href="#">Refund Policy</a></li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
             <div class="footer-bottom">

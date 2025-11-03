@@ -11,60 +11,87 @@ let enrolledCourses = [];
 // Simple user database
 let users = JSON.parse(localStorage.getItem('ayurveez_users')) || [];
 
-// Course Data Structure - LocalStorage se load karo
-let courses = JSON.parse(localStorage.getItem('ayurveez_courses')) || {
-    'first-proff': [
+// Product Data Structure
+let products = JSON.parse(localStorage.getItem('ayurveez_products'));
+if (!products) {
+    products = [
         {
-            id: 'course-1',
-            name: 'Padartha Vigyan',
-            description: 'Fundamental principles of Ayurveda including philosophy, basic concepts and fundamental theories.',
-            duration: '6 Months',
-            fee: 15000,
-            image: 'Assets/images/sanskrit.jpg',
-            content: []
+            id: 'product-1',
+            name: 'Triphala Churna',
+            description: 'Traditional herbal formula for digestion, detoxification and overall wellness.',
+            price: 450,
+            image: 'https://images.unsplash.com/photo-1596047092667-9c78b5fdd1b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+            category: 'herbal-powders',
+            isListed: true,
+            stock: 50
         },
         {
-            id: 'course-2', 
-            name: 'Sanskrit',
-            description: 'Basic Sanskrit language for Ayurvedic studies and scriptures.',
-            duration: '6 Months',
-            fee: 12000,
-            image: 'Assets/images/courses/sanskrit.jpg',
-            content: []
-        }
-    ],
-    'second-proff': [
-        {
-            id: 'course-3',
-            name: 'Dravya Guna Vigyan',
-            description: 'Study of medicinal substances, their properties, actions and therapeutic uses in Ayurveda.',
-            duration: '6 Months',
-            fee: 18000,
-            image: 'Assets/images/courses/dravya_guna.jpg',
-            content: []
+            id: 'product-2',
+            name: 'Ashwagandha Capsules',
+            description: 'Adaptogenic herb for stress relief, energy boost and immune support.',
+            price: 650,
+            image: 'https://images.unsplash.com/photo-1594736797933-d0ea3ff8db41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+            category: 'capsules',
+            isListed: true,
+            stock: 30
         },
         {
-            id: 'course-4',
-            name: 'Rachana Sharir',
-            description: 'Anatomy according to Ayurvedic principles and modern medicine.',
-            duration: '6 Months', 
-            fee: 16000,
-            image: 'Assets/images/courses/rachana_sharir.jpg',
-            content: []
-        }
-    ],
-    'final-proff': [
+            id: 'product-3',
+            name: 'Brahmi Oil',
+            description: 'Herbal hair oil for promoting hair growth, reducing stress and improving memory.',
+            price: 350,
+            image: 'https://images.unsplash.com/photo-1594736797933-d0ea3ff8db41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+            category: 'oils',
+            isListed: true,
+            stock: 25
+        },
         {
-            id: 'course-5',
-            name: 'Kayachikitsa',
-            description: 'General medicine and therapeutic approaches in Ayurveda.',
-            duration: '12 Months',
-            fee: 25000,
-            image: 'Assets/images/courses/kayachikitsa.jpg',
-            content: []
+            id: 'product-4',
+            name: 'Chyawanprash',
+            description: 'Traditional herbal jam for immunity, vitality and overall health maintenance.',
+            price: 550,
+            image: 'https://images.unsplash.com/photo-1596047092667-9c78b5fdd1b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+            category: 'herbal-preparations',
+            isListed: true,
+            stock: 40
         }
-    ]
-};
+    ];
+    localStorage.setItem('ayurveez_products', JSON.stringify(products));
+}
+
+// Course Data Structure - WITH BUNDLE COURSES
+let courses = JSON.parse(localStorage.getItem('ayurveez_courses'));
+if (!courses) {
+    courses = {
+        'first-proff': [
+            {
+                id: 'bundle-first-proff',
+                name: '1st Proff Complete Bundle',
+                description: 'Complete package of all 1st Proff subjects including Padartha Vigyan, Sanskrit, and more.',
+                duration: '18 Months',
+                fee: 3333,
+                image: 'Aseets/images/first',
+                content: [],
+                isBundle: true,
+                isListed: true
+            },
+            {
+                id: 'course-1',
+                name: 'Padartha Vigyan',
+                description: 'Fundamental principles of Ayurveda including philosophy, basic concepts and fundamental theories.',
+                duration: '18 Months',
+                fee: 599,
+                image: 'https://images.unsplash.com/photo-1585435557343-3b092031d5ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                content: [],
+                isListed: true
+            }
+        ]
+    };
+    localStorage.setItem('ayurveez_courses', JSON.stringify(courses));
+}
+
+// Order Data Structure
+let orders = JSON.parse(localStorage.getItem('ayurveez_orders')) || [];
 
 // Admin credentials
 const adminCredentials = {
@@ -87,15 +114,50 @@ let passwordResetStep = 1;
 let resetUser = null;
 let currentPasswordTimer = null;
 
+// Products ko localStorage mein save karo
+function saveProductsToStorage() {
+    localStorage.setItem('ayurveez_products', JSON.stringify(products));
+}
+
 // Courses ko localStorage mein save karo
 function saveCoursesToStorage() {
     localStorage.setItem('ayurveez_courses', JSON.stringify(courses));
 }
 
+// Orders ko localStorage mein save karo
+function saveOrdersToStorage() {
+    localStorage.setItem('ayurveez_orders', JSON.stringify(orders));
+}
+
+// Shloka Slider Functionality
+function initializeShlokaSlider() {
+    let currentShloka = 0;
+    const shlokas = document.querySelectorAll('.shloka-slide');
+    const totalShlokas = shlokas.length;
+    
+    function showNextShloka() {
+        shlokas[currentShloka].classList.remove('active');
+        currentShloka = (currentShloka + 1) % totalShlokas;
+        shlokas[currentShloka].classList.add('active');
+    }
+    
+    setInterval(showNextShloka, 5000);
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Ayurveez App Starting...');
+    
+    // Load enrolled courses from localStorage
+    const savedEnrollments = localStorage.getItem('ayurveez_enrolled_courses');
+    if (savedEnrollments) {
+        enrolledCourses = JSON.parse(savedEnrollments);
+    }
+    
+    initializeShlokaSlider();
     initializeApp();
     loadCourses();
+    loadProducts();
     setupEventListeners();
 });
 
@@ -127,11 +189,8 @@ function setupEventListeners() {
         });
     });
 
-    // Login/Register Modal
-    document.getElementById('login-btn').addEventListener('click', (e) => {
-        e.preventDefault();
-        showLoginModal();
-    });
+    // Profile dropdown
+    setupProfileDropdown();
 
     // Modal tabs
     document.querySelectorAll('.modal-tab').forEach(tab => {
@@ -152,7 +211,7 @@ function setupEventListeners() {
     document.getElementById('admin-login').addEventListener('submit', handleAdminLogin);
     document.getElementById('register-form').addEventListener('submit', handleUserRegister);
     
-    // Forgot Password functionality - FIXED VERSION
+    // Forgot Password functionality
     document.getElementById('forgot-password-link').addEventListener('click', showForgotPassword);
     document.getElementById('back-to-login').addEventListener('click', backToLogin);
     document.getElementById('next-to-security').addEventListener('click', nextToSecurity);
@@ -215,11 +274,485 @@ function setupEventListeners() {
     });
 
     // Order Form Submission
-    document.getElementById('order-form')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        handleOrderSubmission();
+    document.getElementById('order-form')?.addEventListener('submit', handleOrderSubmission);
+
+    // Admin Add Course Button
+    document.getElementById('add-course-btn')?.addEventListener('click', handleAddCourse);
+    
+    // Admin Add Product Button
+    document.getElementById('add-product-btn')?.addEventListener('click', handleAddProduct);
+
+    // Proceed to Payment button on order summary page
+    document.getElementById('proceed-to-payment-btn')?.addEventListener('click', proceedToPayment);
+}
+
+// Profile Dropdown Setup
+function setupProfileDropdown() {
+    const profileIcon = document.getElementById('profile-icon');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+    
+    if (profileIcon && dropdownMenu) {
+        profileIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (isLoggedIn) {
+                dropdownMenu.classList.toggle('active');
+            } else {
+                showLoginModal();
+            }
+        });
+        
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('active');
+        });
+        
+        dropdownMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
+}
+
+// ==================== PRODUCT MANAGEMENT ====================
+
+// Load Products on Products Page
+function loadProducts() {
+    const productGrid = document.querySelector('.product-grid');
+    if (!productGrid) return;
+
+    const listedProducts = products.filter(product => product.isListed);
+    
+    if (listedProducts.length === 0) {
+        productGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 40px;">No products available at the moment.</p>';
+        return;
+    }
+
+    productGrid.innerHTML = listedProducts.map(product => `
+        <div class="product-card">
+            <div class="product-img" style="background-image: url('${product.image}')"></div>
+            <div class="product-content">
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <div class="product-price">
+                    <span class="price">₹${product.price}</span>
+                    <button class="btn add-to-cart" 
+                            data-id="${product.id}" 
+                            data-name="${product.name}" 
+                            data-price="${product.price}" 
+                            data-type="product">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Admin Product Management
+function loadAdminProducts() {
+    const productsList = document.getElementById('admin-products-list');
+    if (!productsList) return;
+
+    productsList.innerHTML = '';
+    
+    if (products.length === 0) {
+        productsList.innerHTML = '<p>No products available. Add a new product to get started.</p>';
+        return;
+    }
+    
+    products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-admin-card';
+        productCard.innerHTML = `
+            <div class="product-admin-header">
+                <div class="product-admin-image">
+                    <img src="${product.image}" alt="${product.name}">
+                </div>
+                <div class="product-admin-details">
+                    <h4>${product.name}</h4>
+                    <p>${product.description}</p>
+                    <div class="product-meta">
+                        <span>Price: ₹${product.price}</span>
+                        <span>Stock: ${product.stock}</span>
+                        <span>Category: ${product.category}</span>
+                    </div>
+                </div>
+                <div class="product-admin-actions">
+                    <button class="btn-toggle ${product.isListed ? 'listed' : 'unlisted'}" 
+                            data-id="${product.id}">
+                        ${product.isListed ? 'Listed' : 'Unlisted'}
+                    </button>
+                    <button class="btn-edit" data-id="${product.id}">Edit</button>
+                    <button class="btn-delete" data-id="${product.id}">Delete</button>
+                </div>
+            </div>
+        `;
+        productsList.appendChild(productCard);
+    });
+    
+    initializeAdminProductButtons();
+}
+
+function initializeAdminProductButtons() {
+    // Toggle listing buttons
+    document.querySelectorAll('.btn-toggle').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-id');
+            toggleProductListing(productId);
+        });
+    });
+    
+    // Edit buttons
+    document.querySelectorAll('.btn-edit').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-id');
+            editProduct(productId);
+        });
+    });
+    
+    // Delete buttons
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-id');
+            deleteProduct(productId);
+        });
     });
 }
+
+function toggleProductListing(productId) {
+    const product = products.find(p => p.id === productId);
+    if (product) {
+        product.isListed = !product.isListed;
+        saveProductsToStorage();
+        loadAdminProducts();
+        loadProducts();
+        showSuccessMessage(`Product ${product.isListed ? 'listed' : 'unlisted'} successfully!`);
+    }
+}
+
+function editProduct(productId) {
+    const product = products.find(p => p.id === productId);
+    if (product) {
+        const newName = prompt('Enter new product name:', product.name);
+        const newDescription = prompt('Enter new product description:', product.description);
+        const newPrice = prompt('Enter new product price:', product.price);
+        const newStock = prompt('Enter new stock quantity:', product.stock);
+        const newImage = prompt('Enter new image URL:', product.image);
+        
+        if (newName && newDescription && newPrice && newStock) {
+            product.name = newName;
+            product.description = newDescription;
+            product.price = parseInt(newPrice);
+            product.stock = parseInt(newStock);
+            if (newImage) product.image = newImage;
+            
+            saveProductsToStorage();
+            loadAdminProducts();
+            loadProducts();
+            showSuccessMessage('Product updated successfully!');
+        }
+    }
+}
+
+function deleteProduct(productId) {
+    if (confirm('Are you sure you want to delete this product?')) {
+        products = products.filter(p => p.id !== productId);
+        saveProductsToStorage();
+        loadAdminProducts();
+        loadProducts();
+        showSuccessMessage('Product deleted successfully!');
+    }
+}
+
+function handleAddProduct() {
+    const name = prompt('Enter product name:');
+    const description = prompt('Enter product description:');
+    const price = prompt('Enter product price:');
+    const stock = prompt('Enter stock quantity:');
+    const category = prompt('Enter category (herbal-powders, capsules, oils, herbal-preparations):');
+    const image = prompt('Enter image URL:');
+    
+    if (name && description && price && stock && category) {
+        const newProduct = {
+            id: 'product-' + Date.now(),
+            name: name,
+            description: description,
+            price: parseInt(price),
+            stock: parseInt(stock),
+            category: category,
+            image: image || 'https://images.unsplash.com/photo-1596047092667-9c78b5fdd1b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+            isListed: true
+        };
+        
+        products.push(newProduct);
+        saveProductsToStorage();
+        loadAdminProducts();
+        loadProducts();
+        showSuccessMessage('New product added successfully!');
+    }
+}
+
+// ==================== ORDER MANAGEMENT ====================
+
+// Generate unique order ID
+function generateOrderId() {
+    const timestamp = Date.now().toString(36);
+    const random = Math.random().toString(36).substr(2, 5);
+    return `AYV${timestamp}${random}`.toUpperCase();
+}
+
+// Modified Order Submission Handler
+function handleOrderSubmission(e) {
+    e.preventDefault();
+    
+    // Collect customer information
+    const customerInfo = {
+        name: document.getElementById('customer-name').value,
+        email: document.getElementById('customer-email').value,
+        phone: document.getElementById('customer-phone').value,
+        address: document.getElementById('customer-address').value,
+        city: document.getElementById('customer-city').value,
+        pincode: document.getElementById('customer-pincode').value,
+        state: document.getElementById('customer-state').value,
+        orderDate: new Date().toISOString()
+    };
+
+    // Validate all fields
+    if (!customerInfo.name || !customerInfo.email || !customerInfo.phone || 
+        !customerInfo.address || !customerInfo.city || !customerInfo.pincode || !customerInfo.state) {
+        showSuccessMessage('Please fill all required fields!', 'error');
+        return;
+    }
+
+    // Calculate total amount
+    const totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+    // Create order with unique ID
+    const order = {
+        id: generateOrderId(),
+        customerInfo: customerInfo,
+        items: [...cart],
+        totalAmount: totalAmount,
+        status: 'pending',
+        orderDate: new Date().toISOString(),
+        paymentStatus: 'pending',
+        paymentDate: null
+    };
+
+    // Save order to localStorage
+    orders.push(order);
+    saveOrdersToStorage();
+
+    // Store current order ID for the payment page
+    localStorage.setItem('current_order_id', order.id);
+
+    // Show success message and redirect to order summary page
+    showSuccessMessage('Address saved successfully! Redirecting to order summary...');
+    
+    setTimeout(() => {
+        showPage('order-summary');
+        renderOrderSummary(order);
+    }, 1500);
+}
+
+// Render Order Summary Page
+function renderOrderSummary(order) {
+    const orderSummary = document.getElementById('order-summary-details');
+    const customerInfo = document.getElementById('customer-info-details');
+    
+    if (!orderSummary || !customerInfo) return;
+
+    // Render order items
+    orderSummary.innerHTML = `
+        <div class="order-summary-header">
+            <h3>Order #${order.id}</h3>
+            <p class="order-date">Order Date: ${new Date(order.orderDate).toLocaleDateString()}</p>
+        </div>
+        <div class="order-items-summary">
+            ${order.items.map(item => `
+                <div class="order-summary-item">
+                    <div class="item-details">
+                        <h4>${item.name}</h4>
+                        <p>Quantity: ${item.quantity}</p>
+                    </div>
+                    <div class="item-total">₹${item.price * item.quantity}</div>
+                </div>
+            `).join('')}
+        </div>
+        <div class="order-summary-total">
+            <strong>Total Amount: ₹${order.totalAmount}</strong>
+        </div>
+    `;
+
+    // Render customer information
+    customerInfo.innerHTML = `
+        <div class="customer-detail">
+            <strong>Name:</strong> ${order.customerInfo.name}
+        </div>
+        <div class="customer-detail">
+            <strong>Email:</strong> ${order.customerInfo.email}
+        </div>
+        <div class="customer-detail">
+            <strong>Phone:</strong> ${order.customerInfo.phone}
+        </div>
+        <div class="customer-detail">
+            <strong>Address:</strong> ${order.customerInfo.address}
+        </div>
+        <div class="customer-detail">
+            <strong>City:</strong> ${order.customerInfo.city}
+        </div>
+        <div class="customer-detail">
+            <strong>Pincode:</strong> ${order.customerInfo.pincode}
+        </div>
+        <div class="customer-detail">
+            <strong>State:</strong> ${order.customerInfo.state}
+        </div>
+    `;
+}
+
+// Proceed to Payment (Cashfree)
+function proceedToPayment() {
+    const currentOrderId = localStorage.getItem('current_order_id');
+    const order = orders.find(o => o.id === currentOrderId);
+    
+    if (!order) {
+        showSuccessMessage('Order not found!', 'error');
+        return;
+    }
+
+    // Update order status to processing payment
+    order.status = 'processing_payment';
+    order.paymentDate = new Date().toISOString();
+    saveOrdersToStorage();
+
+    // Redirect to Cashfree payment page
+    const cashfreeUrl = `https://payments.cashfree.com/forms/ayurveez_payment?order_id=${order.id}&amount=${order.totalAmount}`;
+    
+    showSuccessMessage('Redirecting to payment gateway...');
+    
+    // Open in new tab
+    setTimeout(() => {
+        window.open(cashfreeUrl, '_blank');
+    }, 1000);
+}
+
+// Load Admin Orders
+function loadAdminOrders() {
+    const ordersList = document.getElementById('admin-orders-list');
+    if (!ordersList) return;
+
+    ordersList.innerHTML = '';
+    
+    if (orders.length === 0) {
+        ordersList.innerHTML = '<p>No orders found.</p>';
+        return;
+    }
+    
+    // Sort orders by date (newest first)
+    const sortedOrders = [...orders].sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+    
+    sortedOrders.forEach(order => {
+        const orderCard = document.createElement('div');
+        orderCard.className = 'order-admin-card';
+        orderCard.innerHTML = `
+            <div class="order-admin-header">
+                <div class="order-info">
+                    <h4>Order #${order.id}</h4>
+                    <p><strong>Date:</strong> ${new Date(order.orderDate).toLocaleDateString()}</p>
+                    <p><strong>Status:</strong> <span class="status-${order.status}">${order.status}</span></p>
+                    <p><strong>Payment:</strong> <span class="payment-${order.paymentStatus}">${order.paymentStatus}</span></p>
+                    <p><strong>Total:</strong> ₹${order.totalAmount}</p>
+                </div>
+                <div class="order-customer">
+                    <h5>Customer Details</h5>
+                    <p><strong>${order.customerInfo.name}</strong></p>
+                    <p>📧 ${order.customerInfo.email}</p>
+                    <p>📞 ${order.customerInfo.phone}</p>
+                    <p>📍 ${order.customerInfo.address}, ${order.customerInfo.city}</p>
+                    <p>📮 ${order.customerInfo.pincode}, ${order.customerInfo.state}</p>
+                </div>
+            </div>
+            <div class="order-items-list">
+                <h5>Order Items (${order.items.length})</h5>
+                ${order.items.map(item => `
+                    <div class="order-item-row">
+                        <span>${item.name}</span>
+                        <span>Qty: ${item.quantity}</span>
+                        <span>₹${item.price * item.quantity}</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="order-actions">
+                <button class="btn-status ${order.status === 'completed' ? 'completed' : 'pending'}" 
+                        onclick="updateOrderStatus('${order.id}')">
+                    ${order.status === 'completed' ? 'Completed' : 'Mark Complete'}
+                </button>
+                <button class="btn-delete" onclick="deleteOrder('${order.id}')">Delete</button>
+            </div>
+        `;
+        ordersList.appendChild(orderCard);
+    });
+}
+
+// Update Order Status
+function updateOrderStatus(orderId) {
+    const order = orders.find(o => o.id === orderId);
+    if (order) {
+        if (order.status === 'completed') {
+            order.status = 'pending';
+        } else {
+            order.status = 'completed';
+        }
+        saveOrdersToStorage();
+        loadAdminOrders();
+        showSuccessMessage(`Order ${order.status === 'completed' ? 'marked as completed' : 'set to pending'}!`);
+    }
+}
+
+// Delete Order
+function deleteOrder(orderId) {
+    if (confirm('Are you sure you want to delete this order?')) {
+        orders = orders.filter(o => o.id !== orderId);
+        saveOrdersToStorage();
+        loadAdminOrders();
+        showSuccessMessage('Order deleted successfully!');
+    }
+}
+
+// ==================== ADMIN DASHBOARD ENHANCEMENTS ====================
+
+function loadAdminDashboard() {
+    loadAdminCourses();
+    loadAdminProducts();
+    loadAdminOrders();
+    loadContentUploadForm();
+    loadAdminContentList();
+    initializeUserManagement();
+}
+
+// Update Admin Tabs to include Products and Orders
+function switchAdminTab(tabId) {
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+    
+    document.querySelectorAll('.admin-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    document.getElementById(tabId).classList.add('active');
+
+    // Load specific tab data
+    if (tabId === 'manage-products') {
+        loadAdminProducts();
+    } else if (tabId === 'order-management') {
+        loadAdminOrders();
+    } else if (tabId === 'manage-courses') {
+        loadAdminCourses();
+    }
+}
+
+// ==================== PAGE NAVIGATION ====================
 
 // Page Navigation
 function showPage(pageId) {
@@ -248,17 +781,25 @@ function showPage(pageId) {
     // Load specific page data
     if (pageId === 'courses') {
         loadCourses();
+    } else if (pageId === 'products') {
+        loadProducts();
     } else if (pageId === 'user-dashboard') {
         loadUserDashboard();
     } else if (pageId === 'admin-dashboard') {
         loadAdminDashboard();
     }
+    
+    // Close profile dropdown
+    document.getElementById('dropdown-menu')?.classList.remove('active');
 }
+
+// ==================== LOGIN MODAL FUNCTIONS ====================
 
 // Login Modal Functions
 function showLoginModal() {
     document.getElementById('login-modal').classList.add('active');
     switchModalForm('user-login');
+    hideDropdown();
 }
 
 function closeLoginModal() {
@@ -282,6 +823,8 @@ function switchModalForm(formType) {
     
     document.querySelector(`[data-form="${formType}"]`).classList.add('active');
 }
+
+// ==================== USER REGISTRATION & LOGIN ====================
 
 // User Registration
 function handleUserRegister(e) {
@@ -379,7 +922,9 @@ function handleAdminLogin(e) {
     }
 }
 
-// Forgot Password Functions - UPDATED AND WORKING
+// ==================== FORGOT PASSWORD FUNCTIONS ====================
+
+// Forgot Password Functions
 function showForgotPassword(e) {
     e.preventDefault();
     switchModalForm('forgot-password-form');
@@ -564,26 +1109,101 @@ function getSecurityQuestionText(questionKey) {
     return questions[questionKey] || 'Security question not found';
 }
 
+// ==================== NAVIGATION ====================
+
 // Navigation
 function updateNavigation() {
-    const loginBtn = document.getElementById('login-btn');
-    if (currentUser) {
-        if (currentUser.role === 'admin') {
-            loginBtn.textContent = 'Admin Dashboard';
-            loginBtn.setAttribute('data-page', 'admin-dashboard');
+    console.log('Updating navigation - isLoggedIn:', isLoggedIn, 'isAdmin:', isAdmin);
+    updateProfileDropdown();
+    updateCartCount();
+}
+
+function updateProfileDropdown() {
+    const dropdownMenu = document.getElementById('dropdown-menu');
+    if (!dropdownMenu) return;
+    
+    if (isLoggedIn) {
+        if (isAdmin) {
+            dropdownMenu.innerHTML = `
+                <div class="dropdown-header">Welcome, Admin!</div>
+                <a href="#" class="dropdown-item" data-page="admin-dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Admin Dashboard
+                </a>
+                <a href="#" class="dropdown-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            `;
         } else {
-            loginBtn.textContent = 'My Dashboard';
-            loginBtn.setAttribute('data-page', 'user-dashboard');
+            dropdownMenu.innerHTML = `
+                <div class="dropdown-header">Welcome, ${currentUser?.name || 'User'}!</div>
+                <a href="#" class="dropdown-item" data-page="user-dashboard">
+                    <i class="fas fa-tachometer-alt"></i> My Dashboard
+                </a>
+                <a href="#" class="dropdown-item" data-page="courses">
+                    <i class="fas fa-book"></i> My Courses
+                </a>
+                <a href="#" class="dropdown-item" data-page="consultation">
+                    <i class="fas fa-calendar-check"></i> My Consultations
+                </a>
+                <a href="#" class="dropdown-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            `;
         }
     } else {
-        loginBtn.textContent = 'Login';
-        loginBtn.removeAttribute('data-page');
+        dropdownMenu.innerHTML = `
+            <a href="#" class="dropdown-item" id="dropdown-login">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+            <a href="#" class="dropdown-item" id="dropdown-register">
+                <i class="fas fa-user-plus"></i> Register
+            </a>
+        `;
+    }
+    
+    // Re-attach event listeners
+    attachDropdownEventListeners();
+}
+
+function attachDropdownEventListeners() {
+    // Dropdown login
+    document.getElementById('dropdown-login')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        hideDropdown();
+        showLoginModal();
+    });
+    
+    // Dropdown register
+    document.getElementById('dropdown-register')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        hideDropdown();
+        showLoginModal();
+        setTimeout(() => switchModalForm('register-form'), 100);
+    });
+    
+    // Dropdown navigation links
+    document.querySelectorAll('.dropdown-menu [data-page]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = e.target.getAttribute('data-page');
+            hideDropdown();
+            showPage(page);
+        });
+    });
+}
+
+function hideDropdown() {
+    const dropdown = document.getElementById('dropdown-menu');
+    if (dropdown) {
+        dropdown.classList.remove('active');
     }
 }
 
 function toggleMobileMenu() {
     document.querySelector('.nav-links').classList.toggle('active');
 }
+
+// ==================== CART FUNCTIONS ====================
 
 // Cart Functions
 function addToCart(button) {
@@ -654,7 +1274,6 @@ function renderCartItems() {
         
         return `
             <div class="cart-item">
-                <div class="cart-item-img" style="background-image: url('https://images.unsplash.com/photo-1596047092667-9c78b5fdd1b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80')"></div>
                 <div class="cart-item-details">
                     <div class="cart-item-title">${item.name}</div>
                     <div class="cart-item-price">₹${item.price}</div>
@@ -687,7 +1306,6 @@ function updateQuantity(itemId, change) {
 }
 
 function removeFromCart(itemId) {
-    const item = cart.find(item => item.id === itemId);
     cart = cart.filter(item => item.id !== itemId);
     updateCartCount();
     saveCart();
@@ -733,20 +1351,34 @@ function renderOrderSummary() {
     orderTotal.textContent = `₹${total}`;
 }
 
-function handleOrderSubmission() {
-    showSuccessMessage('Order placed successfully! You will receive confirmation shortly.');
-    
-    // Clear cart
-    cart = [];
-    updateCartCount();
-    saveCart();
-    
-    showPage('home');
-}
+// ==================== COURSE FUNCTIONS ====================
 
 // Course Functions
+function createCourseCard(course) {
+    const card = document.createElement('div');
+    const isBundle = course.isBundle;
+    
+    card.className = `course-card ${isBundle ? 'bundle-course' : ''}`;
+    card.innerHTML = `
+        <div class="course-img" style="background-image: url('${course.image}')"></div>
+        <div class="course-content">
+            <h3>${course.name}</h3>
+            <p>${course.description}</p>
+            <p><strong>Duration:</strong> ${course.duration}</p>
+            <div class="${isBundle ? 'bundle-price' : ''}">
+                <strong>Fee:</strong> ₹${course.fee}
+                ${isBundle ? '<div class="bundle-savings">Save 20% with bundle!</div>' : ''}
+            </div>
+            <button class="btn enroll-now" data-id="${course.id}" data-name="${course.name}" data-price="${course.fee}">
+                ${isBundle ? '🚀 Enroll Bundle' : 'Enroll Now'}
+            </button>
+        </div>
+    `;
+    return card;
+}
+
 function loadCourses() {
-    console.log('Loading courses...', courses);
+    console.log('📚 Loading courses with bundles...', courses);
     
     // Load first proff courses
     const firstProffContainer = document.getElementById('first-proff-courses');
@@ -787,35 +1419,8 @@ function loadCourses() {
         finalProffContainer.innerHTML = '<p>No courses available in this category.</p>';
     }
     
-    // Add to cart buttons ko re-initialize karo
-    initializeAddToCartButtons();
-    // Enroll buttons ko bhi initialize karo
+    // Enroll buttons ko initialize karo
     initializeEnrollButtons();
-}
-
-function createCourseCard(course) {
-    const card = document.createElement('div');
-    card.className = 'course-card';
-    card.innerHTML = `
-        <div class="course-img" style="background-image: url('${course.image}')"></div>
-        <div class="course-content">
-            <h3>${course.name}</h3>
-            <p>${course.description}</p>
-            <p><strong>Duration:</strong> ${course.duration}</p>
-            <p><strong>Fee:</strong> ₹${course.fee}</p>
-            <button class="btn enroll-now" data-id="${course.id}" data-name="${course.name}" data-price="${course.fee}">Enroll Now</button>
-            <button class="btn btn-outline add-to-cart" data-id="${course.id}" data-name="${course.name}" data-price="${course.fee}" data-type="course" style="margin-top: 10px;">Add to Cart</button>
-        </div>
-    `;
-    return card;
-}
-
-function initializeAddToCartButtons() {
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            addToCart(this);
-        });
-    });
 }
 
 function initializeEnrollButtons() {
@@ -831,6 +1436,9 @@ function initializeEnrollButtons() {
             const courseName = this.getAttribute('data-name');
             const coursePrice = this.getAttribute('data-price');
             
+            // Actually enroll the user
+            enrollUserInCourse(courseId, courseName, coursePrice);
+            
             // Redirect to Cashfree payment
             const paymentUrl = `${CASHEFREE_PAYMENT_URL}?amount=${coursePrice}&courseId=${courseId}&courseName=${encodeURIComponent(courseName)}`;
             window.open(paymentUrl, '_blank');
@@ -838,6 +1446,47 @@ function initializeEnrollButtons() {
             showSuccessMessage("Redirecting to payment gateway...");
         });
     });
+}
+
+// Enroll user in course function
+function enrollUserInCourse(courseId, courseName, coursePrice) {
+    // Check if already enrolled
+    const alreadyEnrolled = enrolledCourses.find(course => course.id === courseId);
+    if (alreadyEnrolled) {
+        showSuccessMessage('You are already enrolled in this course!');
+        return;
+    }
+    
+    // Find course details
+    let courseDetails = null;
+    Object.keys(courses).forEach(category => {
+        courses[category].forEach(course => {
+            if (course.id === courseId) {
+                courseDetails = course;
+            }
+        });
+    });
+    
+    // Add to enrolled courses
+    const newEnrollment = {
+        id: courseId,
+        name: courseName,
+        description: courseDetails?.description || 'Ayurvedic course',
+        duration: courseDetails?.duration || '18 Months',
+        price: parseInt(coursePrice),
+        enrolledDate: new Date().toISOString(),
+        progress: 0,
+        image: courseDetails?.image || 'https://images.unsplash.com/photo-1585435557343-3b092031d5ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+        isBundle: courseDetails?.isBundle || false
+    };
+    
+    enrolledCourses.push(newEnrollment);
+    
+    // Save to localStorage
+    localStorage.setItem('ayurveez_enrolled_courses', JSON.stringify(enrolledCourses));
+    
+    showSuccessMessage(`Successfully enrolled in ${courseName}!`);
+    console.log('✅ New enrollment:', newEnrollment);
 }
 
 function switchCourseTab(tabId) {
@@ -853,6 +1502,8 @@ function switchCourseTab(tabId) {
     });
     document.getElementById(tabId).classList.add('active');
 }
+
+// ==================== CONSULTATION FUNCTIONS ====================
 
 // Consultation Functions
 function handleConsultation(e) {
@@ -882,6 +1533,8 @@ function handleContact(e) {
     e.target.reset();
 }
 
+// ==================== DASHBOARD FUNCTIONS ====================
+
 // Dashboard Functions
 function switchDashboardTab(tabId) {
     document.querySelectorAll('.dashboard-tab').forEach(tab => {
@@ -900,12 +1553,21 @@ function loadUserDashboard() {
     loadConsultationHistory();
 }
 
+// Enrolled Courses Function
 function updateEnrolledCourses() {
     const enrolledCoursesList = document.getElementById('enrolled-courses-list');
+    if (!enrolledCoursesList) return;
+    
     enrolledCoursesList.innerHTML = '';
     
     if (enrolledCourses.length === 0) {
-        enrolledCoursesList.innerHTML = '<p>You have not enrolled in any courses yet.</p>';
+        enrolledCoursesList.innerHTML = `
+            <div class="no-courses" style="text-align: center; padding: 40px; color: #666;">
+                <h3>No courses enrolled yet</h3>
+                <p>Browse our courses and start your Ayurvedic journey!</p>
+                <button class="btn" onclick="showPage('courses')" style="margin-top: 15px;">Browse Courses</button>
+            </div>
+        `;
         return;
     }
     
@@ -916,7 +1578,9 @@ function updateEnrolledCourses() {
             <div class="enrolled-course-img" style="background-image: url('${course.image}')"></div>
             <div class="enrolled-course-content">
                 <h3>${course.name}</h3>
-                <p>Access all course materials and start learning.</p>
+                <p>${course.description || 'Access all course materials and start learning.'}</p>
+                <p><strong>Duration:</strong> ${course.duration}</p>
+                <p><strong>Enrolled on:</strong> ${new Date(course.enrolledDate).toLocaleDateString()}</p>
                 <div class="progress-bar">
                     <div class="progress" style="width: ${course.progress || 0}%"></div>
                 </div>
@@ -925,6 +1589,16 @@ function updateEnrolledCourses() {
             </div>
         `;
         enrolledCoursesList.appendChild(courseCard);
+    });
+    
+    // Add event listeners for continue buttons
+    document.querySelectorAll('.continue-course').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const courseId = this.getAttribute('data-course');
+            const course = enrolledCourses.find(c => c.id === courseId);
+            showSuccessMessage(`Continuing with: ${course.name}`);
+            // Add your course continuation logic here
+        });
     });
 }
 
@@ -963,6 +1637,8 @@ function getDoctorName(doctorId) {
     return doctors[doctorId] || 'Unknown Doctor';
 }
 
+// ==================== ADMIN FUNCTIONS ====================
+
 // Admin Functions
 function switchAdminTab(tabId) {
     document.querySelectorAll('.admin-tab').forEach(tab => {
@@ -976,10 +1652,14 @@ function switchAdminTab(tabId) {
     document.getElementById(tabId).classList.add('active');
 }
 
+// Admin Dashboard Function
 function loadAdminDashboard() {
     loadAdminCourses();
+    loadAdminProducts();
+    loadAdminOrders();
     loadContentUploadForm();
     loadAdminContentList();
+    initializeUserManagement();
 }
 
 function loadAdminCourses() {
@@ -1229,23 +1909,25 @@ function loadAdminContentList() {
     }
 }
 
-// Add Course Button
-document.getElementById('add-course-btn').addEventListener('click', function() {
+// Add Course Function for Admin
+function handleAddCourse() {
     const courseName = prompt('Enter course name:');
     const courseDescription = prompt('Enter course description:');
     const courseFee = prompt('Enter course fee:');
     const courseDuration = prompt('Enter course duration (e.g., 6 Months):');
     const courseCategory = prompt('Enter course category (first-proff, second-proff, final-proff):');
+    const isBundle = confirm('Is this a bundle course?');
     
     if (courseName && courseDescription && courseFee && courseDuration && courseCategory) {
         const newCourse = {
-            id: 'course-' + Date.now(),
+            id: isBundle ? `bundle-${courseCategory}-${Date.now()}` : 'course-' + Date.now(),
             name: courseName,
             description: courseDescription,
             duration: courseDuration,
             fee: parseInt(courseFee),
-            image: 'Assets/images/courses/default.jpg',
-            content: []
+            image: isBundle ? 'https://images.unsplash.com/photo-1585435557343-3b092031d5ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' : 'https://images.unsplash.com/photo-1585435557343-3b092031d5ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+            content: [],
+            isBundle: isBundle
         };
         
         if (courses[courseCategory]) {
@@ -1253,12 +1935,14 @@ document.getElementById('add-course-btn').addEventListener('click', function() {
             saveCoursesToStorage();
             loadAdminCourses();
             loadCourses();
-            showSuccessMessage('New course added!');
+            showSuccessMessage(`New ${isBundle ? 'bundle ' : ''}course added!`);
         } else {
             alert('Invalid course category! Use: first-proff, second-proff, or final-proff');
         }
     }
-});
+}
+
+// ==================== TESTIMONIAL SLIDER ====================
 
 // Testimonial Slider
 function setupTestimonialSlider() {
@@ -1286,6 +1970,8 @@ function setupTestimonialSlider() {
     }, 5000);
 }
 
+// ==================== UTILITY FUNCTIONS ====================
+
 // Utility Functions
 function generateId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
@@ -1310,24 +1996,214 @@ function showSuccessMessage(message, type = 'success') {
 
 // Logout functionality
 function logout() {
-    currentUser = null;
-    isLoggedIn = false;
-    isAdmin = false;
-    localStorage.removeItem('currentUser');
-    updateNavigation();
-    showSuccessMessage('Logged out successfully!');
-    showPage('home');
+    if (confirm('Are you sure you want to logout?')) {
+        currentUser = null;
+        isLoggedIn = false;
+        isAdmin = false;
+        localStorage.removeItem('currentUser');
+        updateNavigation();
+        hideDropdown();
+        showSuccessMessage('Logged out successfully!');
+        showPage('home');
+    }
+}
+
+// ==================== USER MANAGEMENT FUNCTIONS ====================
+
+let userCurrentPage = 1;
+const usersPerPage = 10;
+
+// Load users from localStorage
+function loadUsers(page = 1) {
+    const allUsers = getAllRegisteredUsers();
+    const startIndex = (page - 1) * usersPerPage;
+    const endIndex = startIndex + usersPerPage;
+    const usersToShow = allUsers.slice(startIndex, endIndex);
+    
+    displayUsers(usersToShow);
+    updatePagination(allUsers.length, page);
+    updateUserStats(allUsers);
+}
+
+// Display users in table
+function displayUsers(users) {
+    const tbody = document.getElementById('users-table-body');
+    if (!tbody) return;
+    
+    if (users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="no-data">No registered users found</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = users.map(user => `
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>${user.phone || 'Not provided'}</td>
+            <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+            <td><span class="status ${user.status || 'active'}">${user.status || 'active'}</span></td>
+            <td class="actions">
+                <button class="view-btn" onclick="viewUser('${user.id}')">View</button>
+                <button class="edit-btn" onclick="editUser('${user.id}')">Edit</button>
+                <button class="delete-btn" onclick="deleteUser('${user.id}')">Delete</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// View user details
+function viewUser(userId) {
+    const users = getAllRegisteredUsers();
+    const user = users.find(u => u.id === userId);
+    
+    if (user) {
+        const details = `
+User Details:
+-------------
+ID: ${user.id}
+Name: ${user.name}
+Email: ${user.email}
+Phone: ${user.phone || 'Not provided'}
+Registration: ${new Date(user.createdAt).toLocaleDateString()}
+Status: ${user.status || 'active'}
+Role: ${user.role || 'user'}
+Security Question: ${getSecurityQuestionText(user.securityQuestion)}
+        `;
+        alert(details);
+    }
+}
+
+// Edit user status
+function editUser(userId) {
+    const users = getAllRegisteredUsers();
+    const user = users.find(u => u.id === userId);
+    
+    if (user) {
+        const newStatus = prompt('Enter new status (active/inactive):', user.status || 'active');
+        if (newStatus && ['active', 'inactive'].includes(newStatus)) {
+            user.status = newStatus;
+            localStorage.setItem('ayurveez_users', JSON.stringify(users));
+            loadUsers(userCurrentPage);
+            showSuccessMessage('User status updated!');
+        }
+    }
+}
+
+// Delete user
+function deleteUser(userId) {
+    if (confirm('Are you sure you want to delete this user?')) {
+        const users = getAllRegisteredUsers();
+        const updatedUsers = users.filter(user => user.id !== userId);
+        localStorage.setItem('ayurveez_users', JSON.stringify(updatedUsers));
+        loadUsers(userCurrentPage);
+        showSuccessMessage('User deleted!');
+    }
+}
+
+// Search users
+function searchUsers() {
+    const searchTerm = document.getElementById('user-search').value.toLowerCase();
+    const allUsers = getAllRegisteredUsers();
+    
+    const filteredUsers = allUsers.filter(user => 
+        user.name.toLowerCase().includes(searchTerm) ||
+        user.email.toLowerCase().includes(searchTerm) ||
+        (user.phone && user.phone.includes(searchTerm)) ||
+        user.id.toLowerCase().includes(searchTerm)
+    );
+    
+    displayUsers(filteredUsers);
+    updateUserStats(filteredUsers);
+}
+
+// Update pagination
+function updatePagination(totalUsers, currentPage) {
+    const totalPages = Math.ceil(totalUsers / usersPerPage);
+    
+    document.getElementById('current-page').textContent = currentPage;
+    document.getElementById('total-pages').textContent = totalPages;
+    
+    document.getElementById('prev-page').disabled = currentPage === 1;
+    document.getElementById('next-page').disabled = currentPage === totalPages;
+}
+
+// Update user statistics
+function updateUserStats(users) {
+    const total = users.length;
+    const active = users.filter(user => (user.status || 'active') === 'active').length;
+    const inactive = users.filter(user => user.status === 'inactive').length;
+    
+    document.getElementById('total-users').textContent = total;
+    document.getElementById('active-users').textContent = active;
+    document.getElementById('inactive-users').textContent = inactive;
+}
+
+// Get all registered users
+function getAllRegisteredUsers() {
+    return JSON.parse(localStorage.getItem('ayurveez_users')) || [];
+}
+
+// Initialize user management
+function initializeUserManagement() {
+    if (document.getElementById('user-management')) {
+        loadUsers();
+        
+        // Add event listeners
+        document.getElementById('prev-page').addEventListener('click', () => {
+            if (userCurrentPage > 1) {
+                userCurrentPage--;
+                loadUsers(userCurrentPage);
+            }
+        });
+        
+        document.getElementById('next-page').addEventListener('click', () => {
+            const allUsers = getAllRegisteredUsers();
+            const totalPages = Math.ceil(allUsers.length / usersPerPage);
+            if (userCurrentPage < totalPages) {
+                userCurrentPage++;
+                loadUsers(userCurrentPage);
+            }
+        });
+        
+        document.getElementById('search-users').addEventListener('click', searchUsers);
+        
+        document.getElementById('user-search').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchUsers();
+            }
+        });
+    }
 }
 
 // Initialize with sample data for demo
 document.addEventListener('DOMContentLoaded', function() {
-    // Add sample enrolled course
-    enrolledCourses.push({
-        id: 'course-1',
-        name: 'Padartha Vigyan',
-        progress: 30,
-        image: 'Assets/images/courses/padartha_vijnana.jpg'
-    });
+    // Add sample enrolled courses for testing
+    if (enrolledCourses.length === 0) {
+        enrolledCourses.push({
+            id: 'course-1',
+            name: 'Padartha Vigyan',
+            description: 'Fundamental principles of Ayurveda including philosophy, basic concepts and fundamental theories.',
+            progress: 30,
+            duration: '6 Months',
+            image: 'https://images.unsplash.com/photo-1585435557343-3b092031d5ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+            enrolledDate: new Date().toISOString()
+        });
+        
+        enrolledCourses.push({
+            id: 'bundle-first-proff',
+            name: '1st Proff Complete Bundle',
+            description: 'Complete package of all 1st Proff subjects including Padartha Vigyan, Sanskrit, and more.',
+            progress: 65,
+            duration: '12 Months',
+            image: 'https://images.unsplash.com/photo-1585435557343-3b092031d5ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+            enrolledDate: new Date().toISOString(),
+            isBundle: true
+        });
+        
+        // Save to localStorage
+        localStorage.setItem('ayurveez_enrolled_courses', JSON.stringify(enrolledCourses));
+    }
     
     consultations.push({
         id: 'consult-1',
